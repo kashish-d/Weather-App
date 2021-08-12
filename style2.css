@@ -85,7 +85,7 @@ html{
     top: 22%;
     /* left: 17%; */
 }
-#search {
+.search {
     flex: 1;
     width: 70%;
     height: 100%;

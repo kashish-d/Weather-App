@@ -22,6 +22,7 @@ function main() {
     let milesConversion = 1;
     // const apiKey = "02ebe2a652240a89134938ef28b6a54c";   
     const apiKey = config.MY_KEY;
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
 
     let hours = document.querySelectorAll(`${container} .hours`);
     const mainBox = document.querySelector(`${container} .main-box`);
@@ -59,7 +60,7 @@ function main() {
     const feelLikeUnit = document.querySelector(`${container} .feellike-unit`);
 
     const currentLocationSearch = document.querySelector(`${container} .current-location-search`);
-    const searchInput = document.querySelector(`${container} #search`);
+    const searchInput = document.querySelector(`${container} .search`);
     // console.log(rainChance);
 
     currentLocationSearch.addEventListener("click", () => {
@@ -71,7 +72,7 @@ function main() {
                 globalVarLatitude = latitude;
                 globalVarLongitude = longitude;
                 setTimeout(() => {
-                    const geoCodingApi = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
+                    const geoCodingApi = `${proxy}http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
                     fetch(geoCodingApi)
                         .then((response) => response.json())
                         .then((geoCodingResult) => {
@@ -183,7 +184,7 @@ function main() {
 
     // Air Quality Index fetching
     function airIndexUpdate(latitude, longitude) {
-        const airApi = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+        const airApi = `${proxy}http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 
         return fetch(airApi)
             .then((response) => response.json())
@@ -532,7 +533,9 @@ function main() {
         searchInput.focus();
     })
     searchInput.addEventListener('blur',()=>{
-        searchInput.style.display = 'none';
-        locationBox.style.display = 'flex';
+        if(container == '.mobile-container'){
+            searchInput.style.display = 'none';
+            locationBox.style.display = 'flex';
+        }
     })
 }

@@ -90,7 +90,7 @@ html {
 .date::after {
     content: ",";
 }
-#search {
+.search {
     height: 50%;
     flex: 1;
     border: none;
