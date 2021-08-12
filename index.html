@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="shortcut icon" href="images/flaticon.png" type="image/x-icon">
+    <link rel="stylesheet" media="screen and (max-width: 1000px)" href="phone.css">
+    <link rel="stylesheet" media="screen and (min-width: 1000px)" href="style2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="master-container">
+        <div class="main-box">
+            <div class="current-weather">
+                <div class="search-box">
+                    <div class="search-icon">
+                        <img src="images/search.png" alt="">
+                    </div>
+                    <input type="search" id="search" placeholder="Search for places...">
+                    <div class="current-location-search">
+                        <img src="images/map.png" alt="">
+                    </div>
+                </div>
+                <div class="weather-icon">
+                    <img src="images/cloudy.png" alt="">
+                </div>
+                <div class="current-temperature">
+                    <p class="temp-value">12</p>
+                    <p class="temp-unit">°C</p>
+                </div>
+                <div class="current-datetime">
+                    <p class="date">Monday,</p>
+                    <p class="time">16:00</p>
+                </div>
+                <div class="horizontal-line"></div>
+                <div class="current-temp-more">
+                    <div class="feel-like current-detail-boxes">
+                        <img class="current-detail-icon" src="images/feels-like.png" alt="">
+                        <p class="temp-more-heading">Feels like -</p>
+                        <div class="feellike-value-box">
+                            <p class="feellike-value">25°
+                            <p>
+                            <p class="feellike-unit">C</p>
+                        </div>
+                    </div>
+                    <div class="weather-type current-detail-boxes">
+                        <img class="current-detail-icon" src="images/cloud.png" alt="">
+                        <p class="weathertype-value">Partly Cloudy</p>
+                    </div>
+                    <div class="rain-chance current-detail-boxes">
+                        <img class="current-detail-icon" src="images/rainy.png" alt="">
+                        <p class="temp-more-heading">Rain -</p>
+                        <p class="rainchance-value">30%</p>
+                    </div>
+                </div>
+                <div class="location">
+                    <p class="location-value">Mumbai, IN</p>
+                </div>
+            </div>
+            <div class="more-details">
+                <div class="more-details-header">
+                    <div class="toggle-today-week">
+                        <p class="tabs today">Today</p>
+                        <p class="tabs week tab-active">Week</p>
+                    </div>
+                    <div class="toggle-unit">
+                        <p class="option celsius unit-option-active">°C</p>
+                        <p class="option fahrenheit">°F</p>
+                        <div class="main-logo">
+                            <img src="images/hacker.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="week-weather-section">
+                    <div id="day-1" class="days">
+                        <p id="day1-name" class="day-name">Mon</p>
+                        <div id="day1-icon" class="day-weather-icon">
+                            <img src="images/sun.png" alt="">
+                        </div>
+                        <div id="day1-temperature" class="day-temperature">
+                            <p id="day1-temp-high" class="day-temp-high">10°</p>
+                            <p id="day1-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-2" class="days">
+                        <p id="day2-name" class="day-name">Tue</p>
+                        <div id="day2-icon" class="day-weather-icon">
+                            <img src="images/cloudy.png" alt="">
+                        </div>
+                        <div id="day2-temperature" class="day-temperature">
+                            <p id="day2-temp-high" class="day-temp-high">20°</p>
+                            <p id="day2-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-3" class="days">
+                        <p id="day3-name" class="day-name">Wed</p>
+                        <div id="day3-icon" class="day-weather-icon">
+                            <img src="images/rain.png" alt="">
+                        </div>
+                        <div id="day3-temperature" class="day-temperature">
+                            <p id="day3-temp-high" class="day-temp-high">30°</p>
+                            <p id="day3-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-4" class="days">
+                        <p id="day4-name" class="day-name">Thu</p>
+                        <div id="day4-icon" class="day-weather-icon">
+                            <img src="images/raining.png" alt="">
+                        </div>
+                        <div id="day4-temperature" class="day-temperature">
+                            <p id="day4-temp-high" class="day-temp-high">40°</p>
+                            <p id="day4-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-5" class="days">
+                        <p id="day5-name" class="day-name">Fri</p>
+                        <div id="day5-icon" class="day-weather-icon">
+                            <img src="images/wind.png" alt="">
+                        </div>
+                        <div id="day5-temperature" class="day-temperature">
+                            <p id="day5-temp-high" class="day-temp-high">50°</p>
+                            <p id="day5-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-6" class="days">
+                        <p id="day6-name" class="day-name">Sat</p>
+                        <div id="day6-icon" class="day-weather-icon">
+                            <img src="images/weather-app.png" alt="">
+                        </div>
+                        <div id="day6-temperature" class="day-temperature">
+                            <p id="day6-temp-high" class="day-temp-high">60°</p>
+                            <p id="day6-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-7" class="days">
+                        <p id="day7-name" class="day-name">Sun</p>
+                        <div id="day7-icon" class="day-weather-icon">
+                            <img src="images/sun.png" alt="">
+                        </div>
+                        <div id="day7-temperature" class="day-temperature">
+                            <p id="day7-temp-high" class="day-temp-high">70°</p>
+                            <p id="day7-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="previous slide-control">&lt;</div>
+                    <div class="day-weather-section">
+                        <div class="sliding-section">
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">17:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">18:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">19:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">20:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">21:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">22:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">23:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">0:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">1:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">2:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">3:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">4:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">5:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">6:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">7:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">8:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">9:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">10:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">11:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">12:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">13:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">14:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">15:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">16:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="next slide-control slide-active">&gt;</div>
+                </div>
+                <p class="highlight-heading">Today's Highlights</p>
+                <div class="card-box">
+                    <div class="card" id="card-1">
+                        <p class="card-heading">UV Index</p>
+                        <div class="semi-box">
+                            <div class="card-value uv-value">5</div>
+                            <div class="outer-box">
+                                <div class="bar"></div>
+                                <div class="progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" id="card-2">
+                        <p class="card-heading">Wind Status</p>
+                        <div class="card-value-box">
+                            <p class="card-value" id="wind-value">7.70</p>
+                            <p class="card-unit" id="wind-unit">km/h</p>
+                        </div>
+                        <div class="wsw">
+                            <img id="wind-direction" src="images/compass.png" alt="">
+                            <p class="wsw-heading card-heading">WSW</p>
+                        </div>
+                    </div>
+                    <div class="card" id="card-3">
+                        <p class="card-heading">Sunrise & Sunset</p>
+                        <div class="card-value-box sunrise-box">
+                            <img src="images/arrow-up.png" alt="">
+                            <p class="sunrise-value">6:35 AM</p>
+                        </div>
+                        <div class="card-value-box sunset-box">
+                            <img src="images/arrow-up.png" alt="">
+                            <p class="sunset-value">5:42 PM</p>
+                        </div>
+                    </div>
+                    <div class="card" id="card-4">
+                        <p class="card-heading">Humidity</p>
+                        <div class="card-value-box">
+                            <p class="card-value" id="humidity-value">12</p>
+                            <p class="card-unit humidity-unit" id="humidity-unit">%</p>
+                            <aside class="meter" id="humidity-meter">
+                                <div class="indicator"></div>
+                            </aside>
+                        </div>
+                        <p id="humidity-remarks" class="remarks">Normal😊</p>
+                    </div>
+                    <div class="card" id="card-5">
+                        <p class="card-heading">Visibility</p>
+                        <div class="card-value-box">
+                            <p class="card-value" id="visibility-value">5.2</p>
+                            <p class="card-unit " id="visibility-unit">km</p>
+                        </div>
+                        <p id="visibility-remarks" class="remarks">Average🙁</p>
+                    </div>
+                    <div class="card" id="card-6">
+                        <p class="card-heading">Air Quality</p>
+                        <div class="card-value-box">
+                            <p class="card-value" id="air-value">1</p>
+                            <aside class="meter" id="air-meter">
+                                <div class="indicator"></div>
+                            </aside>
+                        </div>
+                        <p id="air-remarks" class="remarks">Good😊</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mobile-container">
+        <div class="main-box">
+            <div class="current-weather">
+                <div class="search-box">
+                    <div class="search-icon">
+                        <img class="location-search-icons" src="images/search.png" alt="">
+                    </div>
+                    <div class="location">
+                        <p class="location-value">Mumbai, IN</p>
+                        <div class="current-datetime">
+                            <p class="date">Monday</p>
+                            <p class="time">16:00</p>
+                        </div>
+                    </div>
+                    <input type="search" id="search" placeholder="Search for places..." autocomplete="off">
+                    <div class="current-location-search">
+                        <img class="location-search-icons" src="images/map.png" alt="">
+                    </div>
+                </div>
+                <div class="weather-icon">
+                    <img src="images/cloudy.png" alt="Cloud">
+                </div>
+                <div class="current-temperature">
+                    <p class="temp-value">12</p>
+                    <p class=" celsius unit-option-active">°C<span class="slash">&#47 </span></p>
+                    <p class=" fahrenheit">°F</p>
+                </div>
+                <div class="weather-type current-detail-boxes">
+                    <img class="current-detail-icon" src="images/cloud.png" alt="">
+                    <p class="weathertype-value">Partly Cloudy</p>
+                </div>
+                <div class="feel-like current-detail-boxes">
+                    <img class="current-detail-icon" src="images/feels-like.png" alt="">
+                    <p class="temp-more-heading">Feels like: </p>
+                    <div class="feellike-value-box one-row">
+                        <p class="feellike-value"> 25°
+                        <p>
+                        <p class="feellike-unit">C</p>
+                    </div>
+                </div>
+            </div>
+            <p class="highlight-heading">Today's Highlights</p>
+            <div class="more-detail">
+                <div class="card-box">
+                    <div class="card" id="card-1">
+                        <p class="card-heading">UV Index</p>
+                        <div class="semi-box">
+                            <div class="card-value uv-value">5</div>
+                            <div class="outer-box">
+                                <div class="bar"></div>
+                                <div class="progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" id="card-2">
+                        <p class="card-heading">Wind Status</p>
+                        <div class="card-value-box">
+                            <p class="card-value" id="wind-value">7.70</p>
+                            <p class="card-unit" id="wind-unit">km/h</p>
+                        </div>
+                        <div class="wsw">
+                            <img id="wind-direction" src="images/compass.png" alt="">
+                            <p class="wsw-heading card-heading">WSW</p>
+                        </div>
+                    </div>
+                    <div class="rain-chance card" id="card-3">
+                        <p class="card-heading">Rain</p>
+                        <img class="rain-icon" src="images/rainy.png" alt="">
+                        <p class="rainchance-value card-value">30%</p>
+                    </div>
+                    <div class="card" id="card-4">
+                        <p class="card-heading">Humidity</p>
+                        <div class="card-value-box">
+                            <p class="card-value" id="humidity-value">12</p>
+                            <p class="card-unit humidity-unit" id="humidity-unit">%</p>
+                            <aside class="meter" id="humidity-meter">
+                                <div class="indicator"></div>
+                            </aside>
+                        </div>
+                        <p id="humidity-remarks" class="remarks">Normal😊</p>
+                    </div>
+                    <div class="card" id="card-5">
+                        <p class="card-heading">Visibility</p>
+                        <div class="card-value-box">
+                            <p class="card-value" id="visibility-value">5.2</p>
+                            <p class="card-unit " id="visibility-unit">km</p>
+                        </div>
+                        <p id="visibility-remarks" class="remarks">Average🙁</p>
+                    </div>
+                    <div class="card" id="card-6">
+                        <p class="card-heading">Air Quality</p>
+                        <div class="card-value-box">
+                            <p class="card-value" id="air-value">1</p>
+                            <aside class="meter" id="air-meter">
+                                <div class="indicator"></div>
+                            </aside>
+                        </div>
+                        <p id="air-remarks" class="remarks">Good😊</p>
+                    </div>
+                </div>
+                <div class="more-details-header">
+                    <div class="toggle-today-week">
+                        <p class="tabs today">Today</p>
+                        <p class="tabs week tab-active">Week</p>
+                    </div>
+                </div>
+                <div class="week-weather-section">
+                    <div id="day-1" class="days">
+                        <p id="day1-name" class="day-name">Mon</p>
+                        <div id="day1-icon" class="day-weather-icon">
+                            <img src="images/sun.png" alt="">
+                        </div>
+                        <div id="day1-temperature" class="day-temperature">
+                            <p id="day1-temp-high" class="day-temp-high">10°</p>
+                            <p id="day1-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-2" class="days">
+                        <p id="day2-name" class="day-name">Tue</p>
+                        <div id="day2-icon" class="day-weather-icon">
+                            <img src="images/cloudy.png" alt="">
+                        </div>
+                        <div id="day2-temperature" class="day-temperature">
+                            <p id="day2-temp-high" class="day-temp-high">20°</p>
+                            <p id="day2-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-3" class="days">
+                        <p id="day3-name" class="day-name">Wed</p>
+                        <div id="day3-icon" class="day-weather-icon">
+                            <img src="images/rain.png" alt="">
+                        </div>
+                        <div id="day3-temperature" class="day-temperature">
+                            <p id="day3-temp-high" class="day-temp-high">30°</p>
+                            <p id="day3-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-4" class="days">
+                        <p id="day4-name" class="day-name">Thu</p>
+                        <div id="day4-icon" class="day-weather-icon">
+                            <img src="images/raining.png" alt="">
+                        </div>
+                        <div id="day4-temperature" class="day-temperature">
+                            <p id="day4-temp-high" class="day-temp-high">40°</p>
+                            <p id="day4-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-5" class="days">
+                        <p id="day5-name" class="day-name">Fri</p>
+                        <div id="day5-icon" class="day-weather-icon">
+                            <img src="images/wind.png" alt="">
+                        </div>
+                        <div id="day5-temperature" class="day-temperature">
+                            <p id="day5-temp-high" class="day-temp-high">50°</p>
+                            <p id="day5-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-6" class="days">
+                        <p id="day6-name" class="day-name">Sat</p>
+                        <div id="day6-icon" class="day-weather-icon">
+                            <img src="images/weather-app.png" alt="">
+                        </div>
+                        <div id="day6-temperature" class="day-temperature">
+                            <p id="day6-temp-high" class="day-temp-high">60°</p>
+                            <p id="day6-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                    <div id="day-7" class="days">
+                        <p id="day7-name" class="day-name">Sun</p>
+                        <div id="day7-icon" class="day-weather-icon">
+                            <img src="images/sun.png" alt="">
+                        </div>
+                        <div id="day7-temperature" class="day-temperature">
+                            <p id="day7-temp-high" class="day-temp-high">70°</p>
+                            <p id="day7-temp-low" class="day-temp-low">5°</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="day-weather-section">
+                        <div class="sliding-section">
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">17:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">18:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">19:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">20:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">21:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">22:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">23:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">0:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">1:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">2:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">3:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">4:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">5:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">6:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">7:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">8:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">9:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">10:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">11:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">12:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">13:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">14:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">15:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                            <div id="hour-1" class="hours">
+                                <p id="hour1-name" class="day-name">16:00</p>
+                                <div id="hour1-icon" class="day-weather-icon">
+                                    <img src="images/sun.png" alt="">
+                                </div>
+                                <div id="hour1-temperature" class="day-temperature">
+                                    <p id="hour1-temp-high" class="day-temp-high">10°</p>
+                                    <p id="hour1-temp-low" class="day-temp-low">5°</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="skycons.js"></script>
+    <script defer src="app.js"></script>
+</body>
+
+</html>
