@@ -20,7 +20,8 @@ function main() {
     let globalVarLatitude = "29.3868068";
     let globalVarLongitude = "76.95277229999999";
     let milesConversion = 1;
-    const apiKey = "02ebe2a652240a89134938ef28b6a54c";
+    // const apiKey = "02ebe2a652240a89134938ef28b6a54c";   
+    const apiKey = config.MY_KEY;
 
     let hours = document.querySelectorAll(`${container} .hours`);
     const mainBox = document.querySelector(`${container} .main-box`);
@@ -75,6 +76,7 @@ function main() {
                         .then((response) => response.json())
                         .then((geoCodingResult) => {
                             currentLocation.textContent = `${geoCodingResult[0].name}, ${geoCodingResult[0].country}`;
+                            console.log(currentLocation);
                         }, 0);
                 });
             });
