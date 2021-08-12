@@ -91,7 +91,7 @@ function main() {
     searchInput.addEventListener("keydown", (e) => {
         if (e.keyCode === 13) {
             let searchLocation = searchInput.value;
-            const geoCodingApi = `http://api.openweathermap.org/geo/1.0/direct?q=${searchLocation}&limit=1&appid=${apiKey}`;
+            const geoCodingApi = `${proxy}http://api.openweathermap.org/geo/1.0/direct?q=${searchLocation}&limit=1&appid=${apiKey}`;
             fetch(geoCodingApi)
                 .then((response) => response.json())
                 .then((geoCodingResult) => {
@@ -527,15 +527,19 @@ function main() {
 
     const mobileSearch = document.querySelector(`.mobile-container .search-icon`);
     const locationBox = document.querySelector(`.mobile-container .location`);
-    locationBox.addEventListener('click',()=>{
+    mobileSearch.addEventListener('click',searchActive);
+    locationBox.addEventListener('click',searchActive);
+    function searchActive(){
         searchInput.style.display = 'block';
         locationBox.style.display = 'none';
         searchInput.focus();
-    })
-    searchInput.addEventListener('blur',()=>{
+    }
+    mobileSearch.addEventListener('blur',searchActive);
+    searchInput.addEventListener('blur',locationActive);
+    function locationActive(){
         if(container == '.mobile-container'){
             searchInput.style.display = 'none';
             locationBox.style.display = 'flex';
         }
-    })
+    }
 }
