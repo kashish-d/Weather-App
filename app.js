@@ -19,7 +19,7 @@ function main() {
     let globalVarLatitude = "29.3868068";
     let globalVarLongitude = "76.95277229999999";
     let milesConversion = 1; 
-    const apiKey = config.MY_KEY_PERSONAL;
+    const apiKey = config.MY_KEY;
 
     let hours = document.querySelectorAll(`${container} .hours`);
     const mainBox = document.querySelector(`${container} .main-box`);
