@@ -15,14 +15,11 @@ function resolutionCheck(){
 }
 
 function main() {
-    let geoCodingData = [];
     let units = "metric";
     let globalVarLatitude = "29.3868068";
     let globalVarLongitude = "76.95277229999999";
-    let milesConversion = 1;
-    // const apiKey = "02ebe2a652240a89134938ef28b6a54c";   
-    const apiKey = config.MY_KEY;
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
+    let milesConversion = 1; 
+    const apiKey = config.MY_KEY_PERSONAL;
 
     let hours = document.querySelectorAll(`${container} .hours`);
     const mainBox = document.querySelector(`${container} .main-box`);
@@ -61,46 +58,61 @@ function main() {
 
     const currentLocationSearch = document.querySelector(`${container} .current-location-search`);
     const searchInput = document.querySelector(`${container} .search`);
-    // console.log(rainChance);
 
+    const errorMessage  = document.querySelector(`${container} .message-box p`);
+    // console.log(rainChance);
+    currentLocationSearch.addEventListener("dblclick",()=>{return;});
+
+
+    // For current Location. It updates the location by itself
     currentLocationSearch.addEventListener("click", () => {
         searchInput.value = "";
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
+                console.log(position);
                 const { latitude, longitude } = position.coords;
                 getData(latitude, longitude);
                 globalVarLatitude = latitude;
                 globalVarLongitude = longitude;
                 setTimeout(() => {
-                    const geoCodingApi = `${proxy}http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
-                    fetch(geoCodingApi)
+                    const locationRequest = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+                    fetch(locationRequest)
                         .then((response) => response.json())
-                        .then((geoCodingResult) => {
-                            currentLocation.textContent = `${geoCodingResult[0].name}, ${geoCodingResult[0].country}`;
+                        .then((locationResult) => {
+                            // console.log(locationResult);
+                            currentLocation.textContent = `${locationResult.name}, ${locationResult.sys.country}`;
                             console.log(currentLocation);
                         }, 0);
                 });
             });
         } else {
-            alert(
-                "To use current location, Location access is required. Otherwise you can search your city by name"
-            );
+            console.log('Hello');
+            errorMessage.textContent = 'Location permission Denied!';
+            errorMessage.style.visibility = 'visible';
+            setTimeout(()=>{
+                errorMessage.style.visibility = 'hidden';
+            },10000)
         }
     });
 
+
+    // For Searching a place, also sets the location 
     searchInput.addEventListener("keydown", (e) => {
         if (e.keyCode === 13) {
             let searchLocation = searchInput.value;
-            const geoCodingApi = `${proxy}http://api.openweathermap.org/geo/1.0/direct?q=${searchLocation}&limit=1&appid=${apiKey}`;
-            fetch(geoCodingApi)
-                .then((response) => response.json())
-                .then((geoCodingResult) => {
-                    geoCodingData = geoCodingResult;
-                    if (geoCodingData[0] === undefined) {
-                        alert("Not Found. Please check your spellings");
+            const locationRequest = `https://api.openweathermap.org/data/2.5/weather?q=${searchLocation}&appid=${apiKey}&units=metric`;
+            fetch(locationRequest).then((response) => response.json())
+                .then((locationResult) => {
+                    // console.log(locationResult);
+                    if (locationResult.cod != 200) {
+                        errorMessage.textContent = "Not Found. Follow the format 'city,state,country'";
+                        errorMessage.style.visibility = 'visible';
+                        setTimeout(()=>{
+                            errorMessage.style.visibility = 'hidden';
+                        },10000)
                     } else {
-                        const { lat, lon } = geoCodingData[0];
-                        currentLocation.textContent = `${geoCodingData[0].name}, ${geoCodingData[0].country}`;
+                        const { lat, lon } = locationResult.coord;
+                        currentLocation.textContent = `${locationResult.name}, ${locationResult.sys.country}`;
                         getData(lat, lon);
                         globalVarLatitude = lat;
                         globalVarLongitude = lon;
@@ -112,6 +124,8 @@ function main() {
         }
     });
 
+
+    // This gets the api data and calls the updating function
     function getData(latitude, longitude) {
         const oneCallApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alerts,minutely&appid=${apiKey}&units=${units}`;
         fetch(oneCallApi)
@@ -119,17 +133,25 @@ function main() {
             .then((data) => {
                 try {
                     updateData(data);
-                    console.log(data);
+                    // console.log(data);
                 } catch {
                     console.log(data);
                     alert("Some error occurred, Please report the developer");
+                    errorMessage.textContent = 'Some error Occurred!'
+                    errorMessage.style.visibility = 'visible';
+                    setTimeout(()=>{
+                        errorMessage.style.visibility = 'hidden';
+                    },10000)
                     location.reload();
                 }
             });
     }
 
-    // Main function, refreshes and suplies all the data
+    // Main function, refreshes and suplies all the data from api to certail DOM elements.
+    // Many functions are being called here.
     function updateData(data) {
+        errorMessage.textContent = '';
+        errorMessage.style.visibility = 'hidden';
         const currentWeatherIcon = data.current.weather[0].icon;
         const uvIndex = Math.ceil(data.current.uvi);
         const windDirectionValue = data.current.wind_deg;
@@ -139,19 +161,6 @@ function main() {
         const sunriseDate = date(data.current.sunrise, data.timezone_offset);
         const sunsetDate = date(data.current.sunset, data.timezone_offset);
         let airValuesData;
-        airIndexUpdate(globalVarLatitude, globalVarLongitude).then(
-            (airResult) => {
-                airValuesData = airResult;
-                airValue.textContent = `${airValuesData}`;
-                updateMeter(humidityValuesData, airValuesData);
-                remarkUpdate(
-                    humidityValuesData,
-                    visibilityValuesData,
-                    airValuesData
-                );
-            }
-        );
-
             
         currentTempValue.textContent = `${Math.ceil(data.current.temp)}`;
         currentDay.textContent = `${today.day}`;
@@ -159,39 +168,25 @@ function main() {
         feelLike.textContent = `${Math.ceil(data.current.feels_like)}°`;
         currentWeatherType.textContent = `${data.current.weather[0].description}`;
         rainChance.textContent = `${data.hourly[0].pop * 100}%`;
-        weatherIconDiv.innerHTML =
-            '<canvas id="weather-icon-canvas" width="140" height="140"></canvas>';
-        iconSet(
-            currentWeatherIcon,
-            document.getElementById("weather-icon-canvas")
-        );
+        weatherIconDiv.innerHTML ='<canvas id="weather-icon-canvas" width="140" height="140"></canvas>';
+        iconSet(currentWeatherIcon,document.getElementById("weather-icon-canvas"));
         uvValue.textContent = uvIndex;
         windValue.textContent = `${(data.current.wind_speed * 3.6).toFixed(2)}`;
         sunriseValue.textContent = `${sunriseDate.hours}:${sunriseDate.minutes} ${sunriseDate.session}`;
         sunsetValue.textContent = `${sunsetDate.hours}:${sunsetDate.minutes} ${sunsetDate.session}`;
         visibilityValue.textContent = visibilityValuesData * milesConversion;
         humidityValue.textContent = humidityValuesData;
-
+        
         weeklyUpdate(data);
         uvBarUpdate(uvIndex);
         windDirection(windDirectionValue);
         setTimeout(() => {
             hourlyUpdate(data);
-            // const airValuesData = airIndexUpdate()
-            // console.log(airValuesData);
+            updateMeter(humidityValuesData, airValuesData);
+            remarkUpdate(humidityValuesData,visibilityValuesData,airValuesData);
         }, 0);
     }
-
-    // Air Quality Index fetching
-    function airIndexUpdate(latitude, longitude) {
-        const airApi = `${proxy}http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
-
-        return fetch(airApi)
-            .then((response) => response.json())
-            .then((airData) => {
-                return airData.list[0].main.aqi;
-            });
-    }
+    
 
     // Gives object having day and time(24-hr format)
     function date(timestamp, timezone_offset) {
@@ -218,14 +213,15 @@ function main() {
         let hours = today.getUTCHours();
         let minutes = today.getUTCMinutes();
         let session = "AM";
-        if (hours == 0) {
+        if(hours == 12){
+            session = "PM"
+        }else if (hours == 0) {
             hours = 12;
         }
         if (hours > 12) {
             hours = hours - 12;
             session = "PM";
         }
-        if(hours == 12){session = "PM"}
         hours = formatting_date(hours);
         minutes = formatting_date(minutes);
 
@@ -276,8 +272,11 @@ function main() {
                 fog: "hsl(212deg 95% 92%)",
             },
         });
+        // console.log(iconID);
         const customIcon = iconPack[icon];
-        skycons.play();
+        if(iconID.id == 'weather-icon-canvas'){
+            skycons.play();
+        }
         return skycons.set(iconID, Skycons[customIcon]);
     }
 
@@ -341,7 +340,7 @@ function main() {
             let iconId = document.querySelector(`#${key}`);
             iconSet(hourlyIconObj[key], iconId);
         }
-        // hours is updating here otherwise the default ones already in html remain in this hours variable
+        // hours is updating here otherwise the default ones already in html remain in this hours variable. Need this for the sliding
         hours = document.querySelectorAll(`${container} .hours`);
     }
 
@@ -361,7 +360,7 @@ function main() {
         } else if (uvIndex <= 10) {
             progressColor = "red";
         } else {
-            progressColor = "violet";
+            progressColor = "red";
         }
         document.documentElement.style.setProperty("--progress", progressColor);
         progressBar.style.transform = `rotate(${
@@ -371,9 +370,10 @@ function main() {
     }
 
     // rotating the wind direction icon according to the value
+    // http://snowfence.umn.edu/Components/winddirectionanddegrees.htm
     function windDirection(windDirectionValue) {
         const windPointer = document.querySelector(`${container} #wind-direction`);
-        windPointer.style.transform = `rotate(${windDirectionValue - 45}deg)`;
+        windPointer.style.transform = `rotate(${windDirectionValue + 135}deg)`;
     }
 
     // setting humidity meter according to value
@@ -384,11 +384,7 @@ function main() {
     }
 
     // updating remarks
-    function remarkUpdate(
-        humidityValuesData,
-        visibilityValuesData,
-        airValuesData = 4
-    ) {
+    function remarkUpdate(humidityValuesData,visibilityValuesData,airValuesData = 4) {
         let humidityRemarks;
         let visibilityRemarks;
         let airRemarks;
@@ -446,11 +442,7 @@ function main() {
         document.querySelector(`${container} #air-remarks`).textContent = airRemarks;
     }
 
-    // Working of buttons and tab change etc
-    // ON LOAD ANIMATION
-    // window.addEventListener("load", (e) => {
-    //     mainBox.classList.add("active");
-    // });
+    // Celsius, calls the getData function with changed metrics
     celsius.addEventListener("click", () => {
         celsius.classList.add("unit-option-active");
         fahrenheit.classList.remove("unit-option-active");
@@ -462,6 +454,8 @@ function main() {
         feelLikeUnit.textContent = "C";
         currentTempUnit.textContent = "°C";
     });
+
+    // Fahrenheit, calls the getData function with changed metrics
     fahrenheit.addEventListener("click", () => {
         milesConversion = 0.62; //Have to manually convert because the api isn't doing it.
         celsius.classList.remove("unit-option-active");
@@ -473,16 +467,15 @@ function main() {
         feelLikeUnit.textContent = "F";
         currentTempUnit.textContent = "°F";
     });
+
+
     // CAROUSEL OF HOURLY WEATHER SECTION
-    // Getting grid size of the container
     let counter = 0;
     const no_of_columns = 6;
-    const gap_size = parseInt(
-        getComputedStyle(slidingSection).gap.slice(0, -2)
-    );
     let columnSize = 0;
     let totalSize = 0;
 
+    //For carosel
     prevBtn.addEventListener("click", () => {
         if (counter <= 0) return;
         counter--;
@@ -496,6 +489,7 @@ function main() {
         }
     });
 
+    // For carousel
     nextBtn.addEventListener("click", () => {
         if (counter >= hours.length / no_of_columns - 1) return;
         counter++;
@@ -508,7 +502,6 @@ function main() {
     });
 
     // tab switching
-
     today.addEventListener("click", () => {
         today.classList.add("tab-active");
         week.classList.remove("tab-active");
@@ -525,6 +518,8 @@ function main() {
         weekSection.style.display = "grid";
     });
 
+    
+    // Search input for mobile resolutions. 
     const mobileSearch = document.querySelector(`.mobile-container .search-icon`);
     const locationBox = document.querySelector(`.mobile-container .location`);
     mobileSearch.addEventListener('click',searchActive);

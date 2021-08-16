@@ -1,3 +1,4 @@
 var config = {
     MY_KEY : '8157d360e0b6ab6885c15875c0b5d91f',
+    MY_KEY_PERSONAL: '8b006a15eb28e129d952e509900c51e0'
   }

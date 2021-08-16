@@ -70,7 +70,7 @@ html{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 3rem;
+    /* margin-bottom: 3rem; */
     position: relative;
 }
 .search-icon {
@@ -110,12 +110,20 @@ html{
     top: 8%;
     left: 50%;
 }
-
+.message-box{
+    font-size: 1.2rem;
+    color: red;
+    min-height: 10%;
+    height: 3.65rem;
+}
+.message-box p{
+    visibility: hidden;
+}
 .weather-icon{
     display: flex;
     /* justify-content: center; */
     align-items: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.8rem;
 }
 .weather-icon img,
 .weather-icon canvas{
@@ -429,7 +437,7 @@ html{
 .wsw img{
     height: 3rem;
     width: 3.1rem;
-    transform: rotate(-45deg);
+    transform: rotate(135deg);
 }
 
 .wsw-heading{
@@ -529,5 +537,13 @@ html{
 @media screen and (max-width: 1000px) {
     html{
         font-size: 9px;
+    }
+}
+@media screen and (min-width: 1600px) {
+    html{
+        font-size: 11px;
+    }
+    .search-box{
+        margin-bottom: 0.3rem;
     }
 }
