@@ -67,8 +67,16 @@ html {
     margin-top: 0.7rem;
 }
 .location-search-icons {
-    height: 70%;
+    height: 60%;
     margin-top: 0.5rem;
+}
+.edit-icon-box{
+    width: 6vmin;
+    margin-left: 0.5rem;
+}
+
+.edit-icon{
+    width: 100%
 }
 .location {
     /* border: 1px solid; */
@@ -77,15 +85,20 @@ html {
     align-items: center;
     flex-direction: column;
 }
+.location-value-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .location-value {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
 }
 .current-datetime {
     display: flex;
 }
 .date,
 .time {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 .date::after {
     content: ",";
@@ -101,8 +114,16 @@ html {
     padding: 2.5rem;
     display: none;
 }
+.message-box{
+    margin: auto;
+}
+.message-box p{
+    font-size: 1.3rem;
+    color: red;
+    visibility: hidden;
+}
 .weather-icon {
-    margin: 5rem 0rem;
+    margin: 1rem 0rem;
     height: 40%;
     /* border: 1px solid; */
     display: flex;
@@ -120,7 +141,7 @@ html {
     justify-content: center;
     /* align-items: center; */
     /* border: 1px solid; */
-    margin-top: 1%;
+    margin-top: 5%;
 }
 .temp-value {
     font-size: 7rem;
@@ -196,7 +217,8 @@ html {
     margin-bottom: 0.4rem;
 }
 .card-unit {
-    margin-top: 0.4rem;
+    /* margin-top: 0.4rem; */
+    margin-top: 1rem;
     font-size: 1.1rem;
 }
 
@@ -304,7 +326,7 @@ html {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
-.hours {
+.hours,.days {
     width: 8.5rem;
 }
 .slide-control {

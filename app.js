@@ -49,7 +49,7 @@ function main() {
     const sunsetValue = document.querySelector(`.sunset-value`);
     const humidityValue = document.querySelector(`${container} #humidity-value`);
     const visibilityValue = document.querySelector(`${container} #visibility-value`);
-    const airValue = document.querySelector(`${container} #air-value`);
+    const dewValue = document.querySelector(`${container} #dew-value`);
 
     const windUnit = document.querySelector(`${container} #wind-unit`);
     const visibilityUnit = document.querySelector(`${container} #visibility-unit`);
@@ -68,8 +68,10 @@ function main() {
     currentLocationSearch.addEventListener("click", () => {
         searchInput.value = "";
         if (navigator.geolocation) {
+            console.log('Yeet');
+
             navigator.geolocation.getCurrentPosition((position) => {
-                console.log(position);
+                console.log("HEllo");
                 const { latitude, longitude } = position.coords;
                 getData(latitude, longitude);
                 globalVarLatitude = latitude;
@@ -84,10 +86,10 @@ function main() {
                             console.log(currentLocation);
                         }, 0);
                 });
-            });
-        } else {
-            console.log('Hello');
-            errorMessage.textContent = 'Location permission Denied!';
+            }); 
+        }
+        else {
+            errorMessage.textContent = 'Could not detect Location!';
             errorMessage.style.visibility = 'visible';
             setTimeout(()=>{
                 errorMessage.style.visibility = 'hidden';
@@ -105,7 +107,7 @@ function main() {
                 .then((locationResult) => {
                     // console.log(locationResult);
                     if (locationResult.cod != 200) {
-                        errorMessage.textContent = "Not Found. Follow the format 'city,state,country'";
+                        errorMessage.textContent = "Not Found. Follow the format City,State,Country";
                         errorMessage.style.visibility = 'visible';
                         setTimeout(()=>{
                             errorMessage.style.visibility = 'hidden';
@@ -135,7 +137,7 @@ function main() {
                     updateData(data);
                     // console.log(data);
                 } catch {
-                    console.log(data);
+                    console.log(data);  
                     alert("Some error occurred, Please report the developer");
                     errorMessage.textContent = 'Some error Occurred!'
                     errorMessage.style.visibility = 'visible';
@@ -379,7 +381,7 @@ function main() {
     // setting humidity meter according to value
     function updateMeter(humidityValuesData, airValuesData = 4) {
         document.querySelector(`${container} #humidity-meter .indicator`).style.transform = `translateY(-${(humidityValuesData / 100) * 280}%)`;
-        document.querySelector(`${container} #air-meter .indicator`).style.transform = `translateY(-${airValuesData * 56}%)`;
+        document.querySelector(`${container} #dew-meter .indicator`).style.transform = `translateY(-${airValuesData * 56}%)`;
         // 280/5 =  56
     }
 
@@ -439,7 +441,7 @@ function main() {
             visibilityRemarks;
         document.querySelector(`${container} #humidity-remarks`).textContent =
             humidityRemarks;
-        document.querySelector(`${container} #air-remarks`).textContent = airRemarks;
+        document.querySelector(`${container} #dew-remarks`).textContent = airRemarks;
     }
 
     // Celsius, calls the getData function with changed metrics

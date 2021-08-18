@@ -16,4 +16,10 @@ let config = {
   MY_KEY : '${Your api key}',
 }
 
-Make a apikey by signing uo on openweatherapi and paste it in place of "Your api key". 
+Make a apikey by signing up on openweatherapi and paste it in place of "Your api key". 
+
+
+<!-- Bugs to Fix -->
+Doesn't notify if current location permission is denied
+Air pollution is not working properly
+<!-- Yet to add warnings to mobile part -->
