@@ -74,12 +74,16 @@
                         <p class="tabs week tab-active">Week</p>
                     </div>
                     <div class="toggle-unit">
+                        <label class="dark-mode-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
                         <p class="option celsius unit-option-active">°C</p>
                         <p class="option fahrenheit">°F</p>
                         <div class="main-logo">
                             <img src="images/hacker.png" alt="">
                         </div>
-                    </div>
+                    </div>     
                 </div>
                 <div class="week-weather-section">
                     <div id="day-1" class="days">
@@ -455,12 +459,10 @@
                         <p id="visibility-remarks" class="remarks">Average🙁</p>
                     </div>
                     <div class="card" id="card-6">
-                        <p class="card-heading">Air Quality</p>
+                        <p class="card-heading">Dew Point</p>
                         <div class="card-value-box">
-                            <p class="card-value" id="air-value">1</p>
-                            <aside class="meter" id="air-meter">
-                                <div class="indicator"></div>
-                            </aside>
+                            <p class="card-value" id="dew-value">1</p>
+                            <p class="card-unit" id="dew-unit">°C</p>
                         </div>
                         <p id="air-remarks" class="remarks">Good😊</p>
                     </div>
@@ -472,8 +474,8 @@
         <div class="main-box">
             <div class="current-weather">
                 <div class="search-box">
-                    <div class="search-icon">
-                        <img class="location-search-icons" src="images/search.png" alt="">
+                    <div class="current-location-search">
+                        <img class="location-search-icons" src="images/map.png" alt="">
                     </div>
                     <div class="location">
                         <div class="location-value-box">
@@ -486,8 +488,8 @@
                         </div>
                     </div>
                     <input type="text" class="search" placeholder="Search for places..." autocomplete="off">
-                    <div class="current-location-search">
-                        <img class="location-search-icons" src="images/map.png" alt="">
+                    <div class="current-location-search dark-mode-icon">
+                        <img class="location-search-icons" id="dark-mode" src="images/night-mode.png" alt="">
                     </div>
                 </div>
                 <div class="message-box">
@@ -567,9 +569,7 @@
                         <p class="card-heading">Dew Point</p>
                         <div class="card-value-box">
                             <p class="card-value" id="dew-value">1</p>
-                            <aside class="meter" id="dew-meter">
-                                <div class="indicator"></div>
-                            </aside>
+                            <p class="card-unit " id="dew-unit">°C</p>
                         </div>
                         <p id="dew-remarks" class="remarks">Good😊</p>
                     </div>

@@ -12,11 +12,24 @@ html{
 :root {
     --master-background: hsl(0, 0%, 85%);
     --main-box: hsl(0, 0%, 100%);
-    --more-detail: hsla(0, 0%, 94%, 1);
     --font-grey: hsl(0, 0%, 75%);
     --black-faded1: hsl(0, 0%, 10%);
     --more-detail-column: hsl(0, 0%, 99%);
+    --more-detail-card: hsl(0, 0%, 99%);
     --progress: hsl(37, 100%, 66%);
+    --font: black;
+    --more-details: hsla(0, 0%, 96%, 1);
+    --option: hsl(0, 0%, 100%);
+    --option-font: hsl(0, 0%, 10%);
+    --option-active: hsl(0, 0%, 0%);
+    --option-active-font: hsl(0, 5%, 89%);
+
+    --dark-main-box: hsl(0,0%,0%);
+    --dark-more-details: hsl(0deg 0% 9%);
+    --dark-card: hsl(0deg 0% 4%);
+    --dark-days: hsl(0deg 0% 3%);
+    --grey-for-dark: hsl(0, 0%, 59%);
+    --dark-master-container: hsl(0deg 0% 12%);
 }
 .mobile-container{
     display: none;
@@ -32,9 +45,10 @@ html{
     padding: 2.5rem 5rem ;
     height: auto;
     overflow: hidden;
+    color: var(--font);
 }
 .main-box {
-    border-radius: 50rem;
+    border-radius: 5rem;
     background: var(--master-background);
     box-shadow: 2rem 2rem 6rem #b6b6b6, -2rem -2rem 6rem #f6f6f6;
     width: 75%;
@@ -62,7 +76,7 @@ html{
     flex-direction: column;
 }
 ::placeholder {
-    color: black;
+    color: var(--font);
     font-size: 1.44rem;
 }
 .search-box {
@@ -79,8 +93,8 @@ html{
     position: relative;
 }
 .search-icon img {
-    height: 1.4rem;
-    width: 1.4rem;
+    height: 1.7rem;
+    width: 1.7rem;
     position: absolute;
     top: 22%;
     /* left: 17%; */
@@ -92,6 +106,11 @@ html{
     outline: none;
     border: none;
     font-size: 1.44rem;
+    background: transparent;
+    color: var(--font);
+}
+.search:focus{
+    border-bottom: 0.1rem solid var(--font);
 }
 .current-location-search {
     height: 100%;
@@ -112,9 +131,9 @@ html{
 }
 .message-box{
     font-size: 1.2rem;
-    color: red;
+    color: tomato;
     min-height: 10%;
-    height: 3.65rem;
+    height: 3.68rem;
 }
 .message-box p{
     visibility: hidden;
@@ -211,7 +230,7 @@ html{
 .more-details {
     min-height: inherit;
     width: 70%;
-    background: hsla(0, 0%, 96%, 1);
+    background: var(--more-details);
     border-radius: 0rem 5rem 5rem 0rem;
     padding: 4rem 5rem;
 }
@@ -242,7 +261,7 @@ html{
 }
 .option{
     font-size: 1.6rem;
-    background-color: var(--main-box);
+    background-color: var(--option);
     border-radius:60%;
     display: flex;
     justify-content: center;
@@ -250,7 +269,7 @@ html{
     height: 3rem;
     width: 3rem;
     margin: 0rem 0.3rem;
-    color: var(--black-faded1);
+    color: var(--option-font);
     font-weight: 600;
     padding: 1.5rem;
     cursor: pointer;
@@ -288,7 +307,7 @@ html{
     padding: 0.9rem;
     border-radius: 1.5rem;
     background-color: var(--more-detail-column);
-    border: 0.1rem solid white;
+    border: 0.1rem solid var(--option);
     height: 11.65rem;
 }
 .day-name{
@@ -338,11 +357,10 @@ html{
     display: grid;
     grid-template-columns: repeat(24,1fr);
     gap: 0.6rem;
-    /* grid-gap: 0.6rem; */
     transition: transform 0.5s ease-out;
 }
 .hours{
-    width: 8.2rem;
+    width: 8.55rem;
 }
 .slide-control{
     width: 3rem;
@@ -376,7 +394,7 @@ html{
     color: var(--black-faded1);
 }
 .card{
-    background-color: var(--more-detail-column);
+    background-color: var(--more-detail-card);
     border-radius: 1.5rem;
     padding: 2rem;
     height: 16.5rem;
@@ -475,13 +493,13 @@ html{
     transform: translate(-50%,-50%);
     border-radius: 50%;
     z-index: 1;
-    border: 1rem solid hsl(0, 3%, 93%)
+    border: 1rem solid hsla(0,3%,93%, 0.2);
 }
 .outer-box .progress{
     position: absolute;
     height: 16rem;
     width: 16rem;
-    border: 2rem solid hsla(0, 0%, 100%, 0.4);
+    border: 2rem solid transparent;
     border-bottom: 2rem solid var(--progress);
     border-right: 2rem solid var(--progress);
     border-radius: 50%;
@@ -511,29 +529,67 @@ html{
     transition: all 0.6s 0.2s ease-in-out;
 }
 
-
-
-
-
-
+.dark-mode-switch{
+    position: relative;
+    height: 2rem;
+    width: 3.8rem;
+    margin-right: 2rem;
+    display: inline-block;
+}
+.dark-mode-switch input{
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+.slider{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: inherit;
+    width: inherit;
+    background: grey;
+    border-radius: 40px;
+    transition: all 0.4s ease-in-out;
+}
+.slider::before{
+    content: '';
+    position: absolute;
+    height: 1.8rem;
+    width: 1.8rem;
+    border-radius: 50%;
+    background: white;
+    top: 4%;
+    left: 2%;
+    transition: all 0.4s ease-in-out;
+}
+.dark-mode-switch input:checked + .slider{
+    background: black;
+}
+.dark-mode-switch input:checked + .slider::before{
+    transform: translateX(100%);
+}
+ 
 /* Adding effects */
 .active {
     opacity: 1;
-    transform: translate(0%, 0%);
+    transform: translate(0%, 0%);   
 }
 
 .tab-active{
-    color: black;
+    color: var(--font);
     border-bottom: 0.18rem solid;
 }
 .unit-option-active{
-    background: var(--black-faded1);
-    color: hsl(0, 5%, 89%);
+    background: var(--option-active);
+    color: var(--option-active-font);
+    border :0.1rem solid var(--black-faded1);
 }
 .slide-active{
     color: var(--black-faded1);
 }   
-
+.invert-img{
+    filter: invert(1)
+}
 @media screen and (max-width: 1000px) {
     html{
         font-size: 9px;
@@ -547,3 +603,56 @@ html{
         margin-bottom: 0.3rem;
     }
 }
+
+/* @media (prefers-color-scheme: dark){
+    .master-container,
+    ::placeholder,
+    .card,
+    .search,
+    .day-temp-high,
+    .wsw-heading{
+        color: white;
+    }
+    .master-container{
+        background: var(--dark-master-container);
+    }
+    .main-box{
+        box-shadow: 2rem 2rem 6rem #0c0c0c, -2rem -2rem 6rem #0e0e0e;
+    }
+    .main-box,
+    .current-weather{
+        background: var(--dark-main-box);
+    }
+    .more-details{
+        background: var(--dark-more-details);
+    }
+    .option{
+        background: hsla(0,0%,0%,1);
+        color: hsl(0, 0%, 59%);
+        background: hsl(0, 4%, 5%);
+    }
+    .unit-option-active{
+        background: var(--dark-main-box);
+        border: 0.1rem solid whitesmoke;
+        color: white;
+    }
+    .card{
+        background: var(--dark-card);
+    }
+    .search-icon img,
+    .current-location-search img{
+        filter: invert(1);
+    }
+    .days,.hours{
+        background: var(--dark-days);
+        border: none;
+    }
+    .day-temp-low,
+    .tabs{
+        color: var(--grey-for-dark);
+    }
+    .tab-active{
+        border-color: white;
+        color: white;
+    }
+} */

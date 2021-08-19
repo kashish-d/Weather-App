@@ -51,6 +51,7 @@ function main() {
     const visibilityValue = document.querySelector(`${container} #visibility-value`);
     const dewValue = document.querySelector(`${container} #dew-value`);
 
+    const dewUnit = document.querySelector(`${container} #dew-unit`)
     const windUnit = document.querySelector(`${container} #wind-unit`);
     const visibilityUnit = document.querySelector(`${container} #visibility-unit`);
     const currentTempUnit = document.querySelector(`.temp-unit`);
@@ -70,8 +71,7 @@ function main() {
         if (navigator.geolocation) {
             console.log('Yeet');
 
-            navigator.geolocation.getCurrentPosition((position) => {
-                console.log("HEllo");
+                const success = (position) => {
                 const { latitude, longitude } = position.coords;
                 getData(latitude, longitude);
                 globalVarLatitude = latitude;
@@ -83,10 +83,20 @@ function main() {
                         .then((locationResult) => {
                             // console.log(locationResult);
                             currentLocation.textContent = `${locationResult.name}, ${locationResult.sys.country}`;
-                            console.log(currentLocation);
+                            // console.log(currentLocation);
                         }, 0);
                 });
-            }); 
+            };
+
+            const error = (err)=>{
+                console.log(err.code,err.message);
+                errorMessage.textContent = 'Location Permission Denied! You can always search..';
+                errorMessage.style.visibility = 'visible';
+                setTimeout(()=>{
+                    errorMessage.style.visibility = 'hidden';
+                },10000)
+            }
+            navigator.geolocation.getCurrentPosition(success,error);
         }
         else {
             errorMessage.textContent = 'Could not detect Location!';
@@ -105,7 +115,6 @@ function main() {
             const locationRequest = `https://api.openweathermap.org/data/2.5/weather?q=${searchLocation}&appid=${apiKey}&units=metric`;
             fetch(locationRequest).then((response) => response.json())
                 .then((locationResult) => {
-                    // console.log(locationResult);
                     if (locationResult.cod != 200) {
                         errorMessage.textContent = "Not Found. Follow the format City,State,Country";
                         errorMessage.style.visibility = 'visible';
@@ -162,7 +171,7 @@ function main() {
         const today = date(data.current.dt, data.timezone_offset);
         const sunriseDate = date(data.current.sunrise, data.timezone_offset);
         const sunsetDate = date(data.current.sunset, data.timezone_offset);
-        let airValuesData;
+        const dewPointValue = Math.ceil(data.current.dew_point);
             
         currentTempValue.textContent = `${Math.ceil(data.current.temp)}`;
         currentDay.textContent = `${today.day}`;
@@ -178,14 +187,15 @@ function main() {
         sunsetValue.textContent = `${sunsetDate.hours}:${sunsetDate.minutes} ${sunsetDate.session}`;
         visibilityValue.textContent = visibilityValuesData * milesConversion;
         humidityValue.textContent = humidityValuesData;
+        dewValue.textContent = dewPointValue;
         
         weeklyUpdate(data);
         uvBarUpdate(uvIndex);
         windDirection(windDirectionValue);
         setTimeout(() => {
             hourlyUpdate(data);
-            updateMeter(humidityValuesData, airValuesData);
-            remarkUpdate(humidityValuesData,visibilityValuesData,airValuesData);
+            updateMeter(humidityValuesData);
+            remarkUpdate(humidityValuesData,visibilityValuesData);
         }, 0);
     }
     
@@ -379,17 +389,16 @@ function main() {
     }
 
     // setting humidity meter according to value
-    function updateMeter(humidityValuesData, airValuesData = 4) {
+    function updateMeter(humidityValuesData) {
         document.querySelector(`${container} #humidity-meter .indicator`).style.transform = `translateY(-${(humidityValuesData / 100) * 280}%)`;
-        document.querySelector(`${container} #dew-meter .indicator`).style.transform = `translateY(-${airValuesData * 56}%)`;
         // 280/5 =  56
     }
 
     // updating remarks
-    function remarkUpdate(humidityValuesData,visibilityValuesData,airValuesData = 4) {
+    function remarkUpdate(humidityValuesData,visibilityValuesData,dewPointValue) {
         let humidityRemarks;
         let visibilityRemarks;
-        let airRemarks;
+        let dewRemarks;
         const remarks = [
             "Low👎🏻",
             "Unhealthy👎🏻",
@@ -425,23 +434,33 @@ function main() {
             visibilityRemarks = remarks[5];
         }
 
-        if (airValuesData <= 1) {
-            airRemarks = remarks[5];
-        } else if (airValuesData == 2) {
-            airRemarks = remarks[3];
-        } else if (airValuesData == 3) {
-            airRemarks = remarks[2];
-        } else if (airValuesData == 4) {
-            airRemarks = remarks[1];
-        } else {
-            airRemarks = remarks[7];
+        if(units == 'metric'){
+            if (dewPointValue <= 25) {
+                dewRemarks = remarks[5];
+            } else if (dewPointValue <= 55) {
+                dewRemarks = remarks[3];
+            } else if (dewPointValue <= 65) {
+                dewRemarks = remarks[6];
+            } else {
+                dewRemarks = remarks[8];
+            }
+        }else{
+            if (dewPointValue <= 77) {
+                dewRemarks = remarks[5];
+            } else if (dewPointValue <= 131) {
+                dewRemarks = remarks[3];
+            } else if (dewPointValue <= 149) {
+                dewRemarks = remarks[6];
+            } else {
+                dewRemarks = remarks[8];
+            }
         }
 
         document.querySelector(`${container} #visibility-remarks`).textContent =
             visibilityRemarks;
         document.querySelector(`${container} #humidity-remarks`).textContent =
             humidityRemarks;
-        document.querySelector(`${container} #dew-remarks`).textContent = airRemarks;
+        document.querySelector(`${container} #dew-remarks`).textContent = dewRemarks;
     }
 
     // Celsius, calls the getData function with changed metrics
@@ -468,6 +487,7 @@ function main() {
         visibilityUnit.textContent = "miles";
         feelLikeUnit.textContent = "F";
         currentTempUnit.textContent = "°F";
+        dewUnit.textContent = "°F";
     });
 
 
@@ -522,16 +542,13 @@ function main() {
 
     
     // Search input for mobile resolutions. 
-    const mobileSearch = document.querySelector(`.mobile-container .search-icon`);
     const locationBox = document.querySelector(`.mobile-container .location`);
-    mobileSearch.addEventListener('click',searchActive);
     locationBox.addEventListener('click',searchActive);
     function searchActive(){
         searchInput.style.display = 'block';
         locationBox.style.display = 'none';
         searchInput.focus();
     }
-    mobileSearch.addEventListener('blur',searchActive);
     searchInput.addEventListener('blur',locationActive);
     function locationActive(){
         if(container == '.mobile-container'){
@@ -539,4 +556,75 @@ function main() {
             locationBox.style.display = 'flex';
         }
     }
+    
+    const darkModebtn = document.querySelector(`.dark-mode-icon`);
+    darkModebtn.addEventListener('click',()=>{
+        darkModebtn.style.animation = 'darkMode 1s ease-in-out';
+        if(darkModebtn.classList.contains('dark')){
+            document.documentElement.style.setProperty(`--master-background`,'hsl(0, 4%, 91%)');
+            document.documentElement.style.setProperty(`--master-background-2`,'hsl(200, 56%, 94%)');
+            document.documentElement.style.setProperty(`--font`,'black');
+            document.documentElement.style.setProperty(`--black-faded1`,'hsl(0, 0%, 10%)');
+            document.documentElement.style.setProperty(`--font-grey`,'hsl(0, 2%, 70%)');
+            document.documentElement.style.setProperty(`--more-detail-column`,'hsl(0, 0%, 99%)');
+            document.querySelector(`.edit-icon`).classList.remove('invert-img');
+            document.querySelector(`${container} .current-location-search img`).classList.remove('invert-img');
+            document.querySelector(`#dark-mode`).classList.remove('invert-img');
+            darkModebtn.classList.remove('dark')
+        }else{
+            document.documentElement.style.setProperty(`--master-background`,'hsl(0deg 1% 5%)');
+            document.documentElement.style.setProperty(`--master-background-2`,'hsl(0deg 1% 5%)');
+            document.documentElement.style.setProperty(`--font`,'hsl(0, 0%, 99%)');
+            document.documentElement.style.setProperty(`--black-faded1`,'hsl(0, 0%, 96%)');
+            document.documentElement.style.setProperty(`--font-grey`,'hsl(0, 0%, 59%)');
+            document.documentElement.style.setProperty(`--more-detail-column`,'hsl(0,0%,0%)');
+            document.querySelector(`.edit-icon`).classList.add('invert-img');
+            document.querySelector(`${container} .current-location-search img`).classList.add('invert-img');
+            document.querySelector(`#dark-mode`).classList.add('invert-img');
+            darkModebtn.classList.add('dark');
+        }
+    });
+    darkModebtn.addEventListener('animationend',()=>{
+        darkModebtn.style.animation = 'none';
+    })
+
+    const darkModeSwitch = document.querySelector('.dark-mode-switch');
+    const darkCheckbox = document.querySelector('.dark-mode-switch input');
+    darkModeSwitch.addEventListener('click',()=>{
+        darkCheckbox.addEventListener('change',()=>{
+            if(darkCheckbox.checked){
+                document.documentElement.style.setProperty(`--master-background`,'hsl(0deg 0% 12%)');
+                document.documentElement.style.setProperty(`--main-box`,'hsl(0,0%,0%)');
+                document.documentElement.style.setProperty(`--font`,'hsl(0,0%,99%)');
+                document.documentElement.style.setProperty(`--font-grey`,'hsl(0, 0%, 59%)');
+                document.documentElement.style.setProperty(`--more-details`,'hsl(0deg 0% 9%)');
+                document.documentElement.style.setProperty(`--more-detail-column`,' hsl(0deg 0% 3%)');
+                document.documentElement.style.setProperty(`--more-detail-card`,'hsl(0deg 0% 4%)');
+                document.documentElement.style.setProperty(`--black-faded1`,'hsl(0deg 0% 98%)');
+                document.documentElement.style.setProperty(`--option`,'hsl(0, 4%, 5%)');
+                document.documentElement.style.setProperty(`--option-active`,'hsl(0,0%,0%)');
+                document.documentElement.style.setProperty(`--option-font`,'hsl(0, 0%, 59%)');
+                document.documentElement.style.setProperty(`--option-active-font`,'hsl(0,0%,100%)');
+                document.querySelector(`${container} .main-box`).style.boxShadow = '2rem 2rem 6rem #0c0c0c, -2rem -2rem 6rem #0e0e0e';
+                document.querySelector(`${container} .current-location-search img`).classList.add('invert-img');
+                document.querySelector(`${container} .search-icon img`).classList.add('invert-img');
+            }else{
+                document.documentElement.style.setProperty(`--master-background`,'hsl(0, 0%, 85%)');
+                document.documentElement.style.setProperty(`--main-box`,'hsl(0, 0%, 100%)');
+                document.documentElement.style.setProperty(`--font`,'black');
+                document.documentElement.style.setProperty(`--font-grey`,'hsl(0, 0%, 75%)');
+                document.documentElement.style.setProperty(`--more-details`,'hsla(0, 0%, 96%, 1)');
+                document.documentElement.style.setProperty(`--more-detail-column`,'hsl(0, 0%, 99%)');
+                document.documentElement.style.setProperty(`--more-detail-card`,'hsl(0, 0%, 99%)');
+                document.documentElement.style.setProperty(`--black-faded1`,'hsl(0, 0%, 10%)');
+                document.documentElement.style.setProperty(`--option`,'hsl(0, 0%, 100%)');
+                document.documentElement.style.setProperty(`--option-active`,'hsl(0, 0%, 0%)');
+                document.documentElement.style.setProperty(`--option-font`,'hsl(0, 0%, 10%)');
+                document.documentElement.style.setProperty(`--option-active-font`,'hsl(0, 5%, 89%)');
+                document.querySelector(`${container} .main-box`).style.boxShadow = '2rem 2rem 6rem #b6b6b6, -2rem -2rem 6rem #f6f6f6';
+                document.querySelector(`${container} .current-location-search img`).classList.remove('invert-img');
+                document.querySelector(`${container} .search-icon img`).classList.remove('invert-img');
+            }
+        })
+    })
 }

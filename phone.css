@@ -9,12 +9,14 @@
 :root {
     --master-background: hsl(0, 4%, 91%);
     --master-background-2: hsl(200, 56%, 94%);
-    --main-box: hsl(0, 0%, 100%);
+    --main-box: hsl(200, 56%, 94%);
     --more-detail: hsla(0, 0%, 94%, 1);
     --font-grey: hsl(0, 2%, 70%);
     --black-faded1: hsl(0, 0%, 10%);
     --more-detail-column: hsl(0, 0%, 99%);
     --progress: hsl(37, 100%, 66%);
+    --font: black;
+
 }
 html {
     font-size: 10px;
@@ -45,6 +47,7 @@ html {
         var(--master-background),
         var(--master-background-2)
     );
+    color: var(--font);
 }
 .current-weather {
     height: 68%;
@@ -58,6 +61,7 @@ html {
     /* border: 1px solid; */
     padding: 0.3rem 0rem;
 }
+
 .search-icon,
 .current-location-search {
     display: flex;
@@ -71,7 +75,7 @@ html {
     margin-top: 0.5rem;
 }
 .edit-icon-box{
-    width: 6vmin;
+    width: 4vmin;
     margin-left: 0.5rem;
 }
 
@@ -108,18 +112,25 @@ html {
     flex: 1;
     border: none;
     max-width: 70%;
-    background: var(--master-background);
     outline: none;
     font-size: 1.8rem;
     padding: 2.5rem;
     display: none;
+    background: transparent;
+    color: var(--font);
+}
+::placeholder{
+    color: var(--font);
+}
+.search:focus{
+    border-bottom: 0.1rem solid white;
 }
 .message-box{
     margin: auto;
 }
 .message-box p{
     font-size: 1.3rem;
-    color: red;
+    color: tomato;
     visibility: hidden;
 }
 .weather-icon {
@@ -155,7 +166,7 @@ html {
     color: var(--font-grey);
 }
 .slash {
-    color: black;
+    color: var(--font);
 }
 .current-detail-boxes {
     display: flex;
@@ -220,6 +231,7 @@ html {
     /* margin-top: 0.4rem; */
     margin-top: 1rem;
     font-size: 1.1rem;
+    margin-left: 0.2rem;
 }
 
 .more-details-header {
@@ -261,7 +273,7 @@ html {
     padding: 0.9rem;
     border-radius: 1.5rem;
     background-color: var(--more-detail-column);
-    border: 0.1rem solid white;
+    border: 0.1rem solid var(--more-detail-column);
     height: 11.65rem;
 }
 .day-name {
@@ -348,12 +360,12 @@ html {
 }
 
 .tab-active {
-    color: black;
+    color: var(--font);
     border-bottom: 0.18rem solid;
 }
 .unit-option-active {
     /* background: var(--black-faded1); */
-    color: hsl(0, 0%, 0%);
+    color: var(--font);
 }
 .slide-active {
     color: var(--black-faded1);
@@ -363,6 +375,29 @@ html {
 .one-row {
     display: flex;
 }
+.invert-img{
+    filter: invert(1)
+}
+
+
+@keyframes darkMode {
+    20%{
+      transform: translateY(-20%);  
+    }
+    30%{
+        transform: translateY(-20%) rotate(-20deg);
+    }
+    40%{
+        transform: translateY(-20%) rotate(20deg);
+    }
+    50%{
+        transform: translateY(-20%);
+    }
+    65%{
+        transform: translateY(0%);
+    }
+}
+
 
 @media screen and (max-width: 300px) {
     * {
@@ -477,7 +512,7 @@ html {
         transform: translate(-50%, -50%);
         border-radius: 50%;
         z-index: 1;
-        border: 1rem solid hsl(0, 3%, 93%);
+        border: 1rem solid hsla(0,3%,93%, 0.2);
     }
     .outer-box .progress {
         position: absolute;
@@ -523,3 +558,47 @@ html {
         height: 4rem;
     }
 }
+
+
+/* @media (prefers-color-scheme: dark){
+    .mobile-container,
+    ::placeholder,
+    .card,
+    .search,
+    .day-temp-high,
+    .wsw-heading,
+    .slash{
+        color: white;
+    }
+    .main-box,
+    .current-weather,
+    .mobile-container{
+        background: var(--dark-more-details);
+    }
+    .option{
+        color: hsl(0, 0%, 59%);
+    }
+    .unit-option-active{
+        color: white;
+    }
+    .card{
+        background: var(--dark-main-box);
+    }
+    .search-icon img,
+    .current-location-search img,
+    .edit-icon{
+        filter: invert(1);
+    }
+    .days,.hours{
+        background: var(--dark-main-box);
+        border: none;
+    }
+    .day-temp-low,
+    .tabs{
+        color: var(--grey-for-dark);
+    }
+    .tab-active{
+        border-color: white;
+        color: white;
+    }
+} */
