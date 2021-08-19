@@ -195,7 +195,7 @@ function main() {
         setTimeout(() => {
             hourlyUpdate(data);
             updateMeter(humidityValuesData);
-            remarkUpdate(humidityValuesData,visibilityValuesData);
+            remarkUpdate(humidityValuesData,visibilityValuesData,dewPointValue);
         }, 0);
     }
     
@@ -435,31 +435,29 @@ function main() {
         }
 
         if(units == 'metric'){
-            if (dewPointValue <= 25) {
+            if (dewPointValue < 25) {
                 dewRemarks = remarks[5];
-            } else if (dewPointValue <= 55) {
+            } else if (dewPointValue < 55) {
                 dewRemarks = remarks[3];
-            } else if (dewPointValue <= 65) {
+            } else if (dewPointValue < 65) {
                 dewRemarks = remarks[6];
             } else {
                 dewRemarks = remarks[8];
             }
-        }else{
-            if (dewPointValue <= 77) {
+        }else if(units == 'imperial') {
+            if (dewPointValue < 77) {
                 dewRemarks = remarks[5];
-            } else if (dewPointValue <= 131) {
+            } else if (dewPointValue < 131) {
                 dewRemarks = remarks[3];
-            } else if (dewPointValue <= 149) {
+            } else if (dewPointValue < 149) {
                 dewRemarks = remarks[6];
             } else {
                 dewRemarks = remarks[8];
             }
         }
 
-        document.querySelector(`${container} #visibility-remarks`).textContent =
-            visibilityRemarks;
-        document.querySelector(`${container} #humidity-remarks`).textContent =
-            humidityRemarks;
+        document.querySelector(`${container} #visibility-remarks`).textContent = visibilityRemarks;
+        document.querySelector(`${container} #humidity-remarks`).textContent = humidityRemarks;
         document.querySelector(`${container} #dew-remarks`).textContent = dewRemarks;
     }
 
