@@ -178,7 +178,7 @@ function main() {
         currentTime.textContent = `${today.hours}:${today.minutes} ${today.session}`;
         feelLike.textContent = `${Math.ceil(data.current.feels_like)}°`;
         currentWeatherType.textContent = `${data.current.weather[0].description}`;
-        rainChance.textContent = `${data.hourly[0].pop * 100}%`;
+        rainChance.textContent = `${Math.ceil(data.hourly[0].pop * 100)}%`;
         weatherIconDiv.innerHTML ='<canvas id="weather-icon-canvas" width="140" height="140"></canvas>';
         iconSet(currentWeatherIcon,document.getElementById("weather-icon-canvas"));
         uvValue.textContent = uvIndex;

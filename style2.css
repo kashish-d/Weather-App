@@ -49,7 +49,7 @@ html{
 }
 .main-box {
     border-radius: 5rem;
-    background: var(--master-background);
+    background: var(--more-details);
     box-shadow: 2rem 2rem 6rem #b6b6b6, -2rem -2rem 6rem #f6f6f6;
     width: 75%;
     min-width: 950px;
