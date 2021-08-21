@@ -570,8 +570,8 @@ function main() {
             document.querySelector(`#dark-mode`).classList.remove('invert-img');
             darkModebtn.classList.remove('dark')
         }else{
-            document.documentElement.style.setProperty(`--master-background`,'hsl(0deg 1% 5%)');
-            document.documentElement.style.setProperty(`--master-background-2`,'hsl(0deg 1% 5%)');
+            document.documentElement.style.setProperty(`--master-background`,'hsl(0deg 1% 8%)');
+            document.documentElement.style.setProperty(`--master-background-2`,'hsl(0deg 1% 8%)');
             document.documentElement.style.setProperty(`--font`,'hsl(0, 0%, 99%)');
             document.documentElement.style.setProperty(`--black-faded1`,'hsl(0, 0%, 96%)');
             document.documentElement.style.setProperty(`--font-grey`,'hsl(0, 0%, 59%)');

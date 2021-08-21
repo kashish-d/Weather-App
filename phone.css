@@ -34,6 +34,7 @@ html {
     max-height: 100%;
     background: var(--more-detail);
     padding: 2.5rem;
+    padding-top: 1rem;
     background: linear-gradient(
         var(--master-background),
         var(--master-background-2)
